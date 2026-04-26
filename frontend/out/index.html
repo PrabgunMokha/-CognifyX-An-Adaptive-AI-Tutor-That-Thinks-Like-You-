@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CognifyX</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section id="authScreen" class="auth-screen">
+      <div class="auth-card">
+        <span class="kicker">CognifyX</span>
+        <h1 class="auth-title">Start your learner profile</h1>
+        <p class="lead">Set up the profile once, then enter the dashboard.</p>
+        <div class="form-grid">
+          <label>Username<input id="authUsername" /></label>
+          <label>Email<input id="authEmail" type="email" /></label>
+          <label>Password<input id="authPassword" type="password" /></label>
+          <label>School / University<input id="authSchool" /></label>
+          <label>Class<input id="authClass" /></label>
+        </div>
+        <div class="actions">
+          <button id="enterDashboard">Enter dashboard</button>
+        </div>
+      </div>
+    </section>
+
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <span class="kicker">CognifyX</span>
+          <h1>An adaptive AI tutor that changes how it teaches.</h1>
+          <p>
+            Interview prep, concept mapping, debate, revision timing, and live explanation shifts
+            in one dashboard.
+          </p>
+        </div>
+        <div class="summary">
+          <span class="kicker">Learner memory</span>
+          <p id="personaText">Loading learner profile...</p>
+          <div class="summary-grid">
+            <div>
+              <span>Challenge</span>
+              <strong id="challengeText">Warm-up</strong>
+            </div>
+            <div>
+              <span>Revisions</span>
+              <strong id="revisionCount">0</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="layout">
+        <aside class="sidebar">
+          <h2>Modules</h2>
+          <div class="module-list">
+            <button class="module active" data-module="tutor">Adaptive Studio</button>
+            <button class="module" data-module="interview">Interview Prep</button>
+            <button class="module" data-module="concept">Concept Mapper</button>
+            <button class="module" data-module="debate">Debate Lab</button>
+            <button class="module" data-module="revision">Revision Radar</button>
+          </div>
+        </aside>
+
+        <section class="panel">
+          <div id="tutor" class="module-panel active">
+            <h2>Adaptive Studio</h2>
+            <p class="lead">Adaptive explanations, confusion detection, and instant re-framing.</p>
+            <div class="form-grid">
+              <label>Topic<input id="tutorTopic" value="Python recursion" /></label>
+              <label>Goal<input id="tutorGoal" value="interview clarity" /></label>
+              <label class="full">Learner message<textarea id="tutorMessage">I do not get why the function keeps calling itself.</textarea></label>
+              <label>Style
+                <select id="tutorStyle">
+                  <option value="auto">Auto detect</option>
+                  <option value="analogy">Analogy</option>
+                  <option value="steps">Step-by-step</option>
+                  <option value="example">Example</option>
+                  <option value="theory">Theory</option>
+                </select>
+              </label>
+            </div>
+            <div class="actions">
+              <button id="runTutor">Run tutor session</button>
+              <button class="ghost" data-reframe="steps">Explain differently</button>
+              <button class="ghost" data-reframe="analogy">Use analogy</button>
+              <button class="ghost" data-reframe="example">Show example</button>
+            </div>
+            <div id="tutorResult" class="result hidden"></div>
+          </div>
+
+          <div id="interview" class="module-panel">
+            <h2>Interview Prep</h2>
+            <p class="lead">Scenario-based technical rounds with challenge adjustment.</p>
+            <div class="form-grid">
+              <label>Interview topic<input id="interviewTopic" value="System design for a URL shortener" /></label>
+              <label>Role<input id="interviewRole" value="backend engineer" /></label>
+              <label>Confidence
+                <select id="interviewConfidence">
+                  <option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option>
+                </select>
+              </label>
+              <label class="full">Your answer<textarea id="interviewReply">I would start with requirements, traffic, and data model.</textarea></label>
+            </div>
+            <div class="actions"><button id="runInterview">Next interview round</button></div>
+            <div id="interviewResult" class="result hidden"></div>
+          </div>
+
+          <div id="concept" class="module-panel">
+            <h2>Concept Mapper</h2>
+            <p class="lead">Knowledge gap map plus slide-ready explanation cards.</p>
+            <div class="form-grid">
+              <label>Topic<input id="conceptTopic" value="Machine learning model evaluation" /></label>
+              <label>Goal<input id="conceptGoal" value="deep understanding" /></label>
+            </div>
+            <div class="actions"><button id="runConcept">Build concept map</button></div>
+            <div id="conceptResult" class="result hidden"></div>
+          </div>
+
+          <div id="debate" class="module-panel">
+            <h2>Debate Lab</h2>
+            <p class="lead">Counterexamples and skeptical pressure to test understanding.</p>
+            <div class="form-grid">
+              <label>Topic<input id="debateTopic" value="Caching" /></label>
+              <label class="full">Claim<textarea id="debateClaim">Caching always makes systems faster.</textarea></label>
+            </div>
+            <div class="actions"><button id="runDebate">Start debate</button></div>
+            <div id="debateResult" class="result hidden"></div>
+            <div id="debateAnswerBox" class="result hidden">
+              <div class="form-grid">
+                <label class="full">Your defense<textarea id="debateDefense"></textarea></label>
+                <label>Confidence
+                  <select id="debateConfidence">
+                    <option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option>
+                  </select>
+                </label>
+              </div>
+              <div class="actions"><button id="reviewDebate">Review my defense</button></div>
+            </div>
+            <div id="debateReview" class="result hidden"></div>
+          </div>
+
+          <div id="revision" class="module-panel">
+            <h2>Revision Radar</h2>
+            <p class="lead">Confidence calibration, mistake patterns, and revision timing.</p>
+            <div class="form-grid">
+              <label>Topic<input id="calTopic" value="Binary search" /></label>
+              <label>Confidence
+                <select id="calConfidence">
+                  <option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option>
+                </select>
+              </label>
+            </div>
+            <div class="actions">
+              <button id="loadQuestion">Ask question</button>
+              <button id="runCalibration">Submit answer</button>
+            </div>
+            <div id="questionBox" class="result hidden"></div>
+            <div class="form-grid">
+              <label class="full">Learner answer<textarea id="learnerAnswer">It halves a sorted search space repeatedly to find the target faster.</textarea></label>
+            </div>
+            <div id="calibrationResult" class="result hidden"></div>
+            <div id="revisionList" class="result"></div>
+          </div>
+
+          <p id="status" class="status"></p>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
